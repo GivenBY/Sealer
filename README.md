@@ -21,4 +21,4 @@ Once the necessary setup is complete, users can use the code provided in the rep
 ***This repository can be useful for adding a copyright notice.***
 <br/>
 <br/>
-@GivenBY :+1: Free To Collab!   :shipit:
+@GivenBY :+1: Free To Collab!
