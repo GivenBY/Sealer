@@ -24,26 +24,28 @@ def imgWatermark(file,Watermark):
 
 def pdf_jpg(file,wmark,Watermark):
     # To get better resolution
-    zoom_x = 2.0                                                     # horizontal zoom
-    zoom_y = 2.0                                                     # vertical zoom
-    mat = fitz.Matrix(zoom_x, zoom_y)                                # zoom factor 2 in each dimension
-    all_files = glob.glob(file)
-    doc = fitz.open(all_files)                                       # open document
-    for page in doc:                                                 # iterate through the pages
-        pix = page.get_pixmap(matrix=mat)                            # render page to an image
-        pix.save("../OutputJpg/page-%i.jpg" % page.number)           # store image as a PNG
-        if wmark==("y" or "Y"):
-            imgWatermark(("../OutputJpg/page-%i.jpg" % page.number),Watermark)        
+    zoom_x = 2.0  # horizontal zoom
+    zoom_y = 2.0  # vertical zoom
+    mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
+
+    path = '../'
+    all_files = glob.glob(path + "*.pdf")
+
+    for filename in all_files:
+        doc = fitz.open(filename)  # open document
+        for page in doc:  # iterate through the pages
+            pix = page.get_pixmap(matrix=mat)  # render page to an image
+            pix.save("../OutputJpg/page-%i.png" % page.number)  # store image as a PNG
 
 def jpg_pdf(file):
-    images = [Image.open(f) for f in os.listdir(f"../{file}")]
+    images = [Image.open(f) for f in os.listdir(f"../Images/{file}")]
     pdf_path = "/"
     images[0].save(pdf_path, "PDF" ,resolution=100.0, save_all=True, append_images=images[1:])
 
 while True:
     print('''To add waterMark to Single Jpg File >> W/w''')
     print('''To Extract Jpg From Pdf File and Add WaterMark >> J/j''')
-    print('''To Extract Pdf File From Jpg >> A/a''')
+    print('''To Extract Pdf File From Images *Put all Images in Images folder* >> A/a''')
     print('''Press Another Key to Escape >>''')
     k=input("Enter >> ")
     if k=="W" or k=="w":
