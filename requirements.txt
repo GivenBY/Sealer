@@ -1,2 +1,2 @@
 Pillow>=9.3
-PyMuPDF==1.21.1
+img2pdf==0.4.4

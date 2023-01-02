@@ -1,3 +1,4 @@
+import img2pdf
 import glob,fitz
 import os
 from PIL import Image, ImageDraw, ImageFont
@@ -23,24 +24,11 @@ def imgWatermark(file,Watermark):
     image.save('output.jpg')
 
 def pdf_jpg(file,wmark,Watermark):
-    # To get better resolution
-    zoom_x = 2.0  # horizontal zoom
-    zoom_y = 2.0  # vertical zoom
-    mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
+    pass
 
-    path = '../'
-    all_files = glob.glob(path + "*.pdf")
-
-    for filename in all_files:
-        doc = fitz.open(filename)  # open document
-        for page in doc:  # iterate through the pages
-            pix = page.get_pixmap(matrix=mat)  # render page to an image
-            pix.save("../OutputJpg/page-%i.png" % page.number)  # store image as a PNG
-
-def jpg_pdf(file):
-    images = [Image.open(f) for f in os.listdir(f"../Images/{file}")]
-    pdf_path = "/"
-    images[0].save(pdf_path, "PDF" ,resolution=100.0, save_all=True, append_images=images[1:])
+def jpg_pdf():
+    with open("123.pdf","wb") as f:
+        f.write(img2pdf.convert(glob.glob(os.getcwd()+"/Images/*.jpg")))
 
 while True:
     print('''To add waterMark to Single Jpg File >> W/w''')
@@ -65,7 +53,6 @@ while True:
             watmark=input("Enter WaterMark")
             pdf_jpg(file,watmark,"No")
     elif k=="A" or k=="a":
-        file=input("Enter File Name : ")
-        jpg_pdf(file)
+        jpg_pdf()
     else:
         break
